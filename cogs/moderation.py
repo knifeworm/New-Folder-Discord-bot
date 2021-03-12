@@ -9,12 +9,12 @@ class moderation(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             em = discord.Embed(title="Missing Perms")
-            em.add_field(name=":x:" value=":x: You don't have permission to run this command! :x:")
+            em.add_field(name="", value=":x: You don't have permission to run this command! :x:")
             await ctx.send(embed=em)
         if isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(title="Missing argument")
-            em.add_field(name=":x:", value=":x: The command you have run requires arguments do n!help <command> to see how the command should be ran! :x:")
-            await ctx.sen(embed=em)
+            em.add_field(name="", value=":x: The command you have run requires arguments do n!help <command> to see how the command should be ran! :x:")
+            await ctx.send(embed=em)
         else:
             await ctx.send(error)
 
@@ -32,6 +32,19 @@ class moderation(commands.Cog):
         mem.add_field(name = "Server", value = f'{ctx.guild.name}', inline=False)
         await member.send(embed = mem)
         await member.ban(reason = reason)
-
+    @commands.command()
+    @commands.has_guild_permissions(kick_members=True)
+    async def kick(self, ctx, member : discord.Member, *, reason=None):
+        embed = discord.Embed(title = "Kick")
+        embed.add_field(name = "Member Kicked", value = f'{member}', inline=False)
+        embed.add_field(name = "Staff Member", value = f'{ctx.author}', inline=False)
+        embed.add_field(name = "Reason", value = f'{reason}', inline=False)
+        await ctx.send(embed = embed)
+        mem = discord.Embed(title= "Kick")
+        mem.add_field(name = "Staff Member", value = f'{ctx.author}', inline=False)
+        mem.add_field(name = "Reason", value = f'{reason}', inline=False)
+        mem.add_field(name = "Server", value = f'{ctx.guild.name}', inline=False)
+        await member.send(embed = mem)
+        await member.kick(reason = reason)
 def setup(bot):
     bot.add_cog(moderation(bot))
