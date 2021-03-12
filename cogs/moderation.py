@@ -106,5 +106,7 @@ class moderation(commands.Cog):
             await member.send(embed = mem)
         else:
             await ctx.send(f":x: The member {member} is not muted! :x:")
+
+
 def setup(bot):
-    bot.add_cog(moderation(bot)
+    bot.add_cog(moderation(bot))
