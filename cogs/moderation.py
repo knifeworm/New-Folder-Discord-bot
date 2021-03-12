@@ -9,11 +9,11 @@ class moderation(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             em = discord.Embed(title="Missing Perms")
-            em.add_field(name="", value=":x: You don't have permission to run this command! :x:")
+            em.add_field(name="Error!", value=":x: You don't have permission to run this command! :x:")
             await ctx.send(embed=em)
         if isinstance(error, commands.MissingRequiredArgument):
             em = discord.Embed(title="Missing argument")
-            em.add_field(name="", value=":x: The command you have run requires arguments do n!help <command> to see how the command should be ran! :x:")
+            em.add_field(name="Error!", value=":x: The command you have run requires arguments do n!help <command> to see how the command should be ran! :x:")
             await ctx.send(embed=em)
         else:
             await ctx.send(error)
